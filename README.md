@@ -15,11 +15,15 @@ http://techtalks.tv/talks/fully-convolutional-networks-for-semantic-segmentation
 - Step 1: reinterpret fully connected layer as conv layers with 1x1 output. (No weight changing)
 - Step 2: add conv layer at the very end to do upsample.
 - Step 3: put a pixelwise loss in the end
+
 along the way we have stack of features.
+
 closer to the input - higher resolution - shallow, local - where
+
 closer to the output - lower resolution - deep, global - what
 - Step 4: skip to fuse layers. interpolate and sum.
 - Step 5: Fine tune on per-pixel dataset, PASCAL
+
 I stopped at 8:30 in the video
 
 ## This is about CONVERT fully connected layer to convolutional layer:
