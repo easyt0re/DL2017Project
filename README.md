@@ -5,7 +5,7 @@ To do things a bit differently, we would like to take a GoogLeNet (Inception v3)
 There is also a Tensorflow implementation here: https://github.com/shekkizh/FCN.tensorflow
 This project would mostly based on these previous work.
 
-# edit this on Github Directly is WRONG!
+# Edit this on Github Directly is WRONG!
 
 # Things that Yang found interesting
 This is about CONVERT fully connected layer to convolutional layer:
