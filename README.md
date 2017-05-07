@@ -55,6 +55,8 @@ Blog posts worth mentioning are: (some of this can also be found by the end of h
 
 [About Upsampling](http://warmspringwinds.github.io/tensorflow/tf-slim/2016/11/22/upsampling-and-image-segmentation-with-tensorflow-and-tf-slim/)
 
+Another implemetation called [Train Deeplab](https://github.com/martinkersner/train-DeepLab). They were not using TensorFlow but they were doing PASCAL with **less classes**. Could be useful. This could be developed as an extra feature. I don't know if this makes sense.
+
 #### MS COCO
 There is a [Python API for MS COCO](https://github.com/pdollar/coco), functionality unknown.
 
