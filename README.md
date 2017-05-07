@@ -42,20 +42,20 @@ http://stackoverflow.com/questions/38565497/tensorflow-transfer-learning-impleme
 ### CONVERT: make MS COCO usable in tenserflow (tfRecord)
 The first thing we need to ask is MS COCO or PASCAL?
 
-There is a (Python API for MS COCO)[https://github.com/pdollar/coco] of which I don't know the function
+There is a [Python API for MS COCO](https://github.com/pdollar/coco) of which I don't know the function
 
-This (Tensorflow Annex)[https://github.com/rwightman/tensorflow-annex#tensorflow-annex] thingy claims to do the conversion with no validation...
+This [Tensorflow Annex](https://github.com/rwightman/tensorflow-annex#tensorflow-annex) thingy claims to do the conversion with no validation...
 
-This (Show and Tell)[https://github.com/tensorflow/models/tree/master/im2txt] example used MS COCO and did some convertion. But they include some "caption" as "labels". That's not us.
+This [Show and Tell](https://github.com/tensorflow/models/tree/master/im2txt) example used MS COCO and did some convertion. But they include some "caption" as "labels". That's not us.
 
-This guy's (Blog)[http://warmspringwinds.github.io/blog/] and his (TensorFlow Image Segmentation)[https://github.com/warmspringwinds/tf-image-segmentation] can be useful. 
+This guy's [Blog](http://warmspringwinds.github.io/blog/) and his [TensorFlow Image Segmentation](https://github.com/warmspringwinds/tf-image-segmentation) can be useful. 
 
 Blog posts worth mentioning are: (some of this can also be found by the end of his project README)
-(TFrecords Guide)[http://warmspringwinds.github.io/tensorflow/tf-slim/2016/12/21/tfrecords-guide/]
-(Convert Classification Network to FCN)[http://warmspringwinds.github.io/tensorflow/tf-slim/2016/10/30/image-classification-and-segmentation-using-tensorflow-and-tf-slim/]
-(His Implementation on FCN)[http://warmspringwinds.github.io/tensorflow/tf-slim/2017/01/23/fully-convolutional-networks-(fcns)-for-image-segmentation/]
-(About Upsampling)[http://warmspringwinds.github.io/tensorflow/tf-slim/2016/11/22/upsampling-and-image-segmentation-with-tensorflow-and-tf-slim/]
+[TFrecords Guide](http://warmspringwinds.github.io/tensorflow/tf-slim/2016/12/21/tfrecords-guide/)
+[Convert Classification Network to FCN](http://warmspringwinds.github.io/tensorflow/tf-slim/2016/10/30/image-classification-and-segmentation-using-tensorflow-and-tf-slim/)
+[His Implementation on FCN](http://warmspringwinds.github.io/tensorflow/tf-slim/2017/01/23/fully-convolutional-networks-(fcns)-for-image-segmentation/)
+[About Upsampling](http://warmspringwinds.github.io/tensorflow/tf-slim/2016/11/22/upsampling-and-image-segmentation-with-tensorflow-and-tf-slim/)
 
 ### Back Hand
-(VGG in TensorFlow)[https://www.cs.toronto.edu/~frossard/post/vgg16/]
+[VGG in TensorFlow](https://www.cs.toronto.edu/~frossard/post/vgg16/)
 
