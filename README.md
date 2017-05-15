@@ -12,7 +12,7 @@ This project would mostly based on these previous work.
 # Edit this on Github Directly is WRONG!
 
 # Things that Yang found interesting
-## Here is the presentation given by the authors of the original paper.
+## Here is the presentation ([slides](https://docs.google.com/presentation/d/1VeWFMpZ8XN7OC3URZP4WdXvOGYckoFWGVN7hApoXVnc))given by the authors of the original paper.
 http://techtalks.tv/talks/fully-convolutional-networks-for-semantic-segmentation/61606/
 
 ## Notes from this presentation
