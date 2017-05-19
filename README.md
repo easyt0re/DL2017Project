@@ -11,6 +11,18 @@ This project would mostly based on these previous work.
 
 # Edit this on Github Directly is WRONG!
 
+# Update Log
+## Major Updates: #1
+uploaded modified inception_v3_fcn (generate the model) based on slim/nets/inception_v3.py
+uploaded modified inception_FCN (training and visualize script) based on tensorflow.FCN/FCN.py and slim/train_image_classifier.py
+uploaded inception_utils.py from slim/nets because I think it's needed
+More will be uploaded later if needed
+
+Possible work for next update
+cleanup inception_v3_fcn: use slim/nets/inception_v3.py as much as possible and separate upsampling part
+minor mod for inception_FCN: i dont know if it will work 
+
+
 # Things that Yang found interesting
 ## Here is the presentation ([slides](https://docs.google.com/presentation/d/1VeWFMpZ8XN7OC3URZP4WdXvOGYckoFWGVN7hApoXVnc))given by the authors of the original paper.
 http://techtalks.tv/talks/fully-convolutional-networks-for-semantic-segmentation/61606/
