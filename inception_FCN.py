@@ -53,7 +53,7 @@ tf.flags.DEFINE_boolean(
 
 MAX_ITERATION = int(1e1 + 1)
 NUM_OF_CLASSESS = 151
-IMAGE_SIZE = 200
+IMAGE_SIZE = 224
 
 
 def train(loss_val, var_list):
