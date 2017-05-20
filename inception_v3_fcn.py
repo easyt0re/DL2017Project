@@ -586,9 +586,9 @@ def inception_v3_fcn(inputs,
                          reuse=reuse) as scope:
     with slim.arg_scope([slim.batch_norm, slim.dropout],
                         is_training=is_training):
-      net, end_points = inception_v3_base(
-          inputs, scope=scope, min_depth=min_depth,
-          depth_multiplier=depth_multiplier)
+      net, end_points = inception_v3(
+          inputs, num_classes=num_classes, scope=scope, dropout_keep_prob=dropout_keep_prob, min_depth=min_depth,
+          depth_multiplier=depth_multiplier, spatial_squeeze=spatial_squeeze)
 
       # # Final pooling and prediction
       # with tf.variable_scope('Logits'):
@@ -606,25 +606,28 @@ def inception_v3_fcn(inputs,
       #   # 1000
       # end_points['Logits'] = logits
       # end_points['Predictions'] = prediction_fn(logits, scope='Predictions')
-      with tf.variable_scope('FCN'):
-        # 8 x 8 x 2048
-        kernel_size = _reduced_kernel_size_for_small_input(net, [8, 8])
-        net = slim.avg_pool2d(net, kernel_size, padding='VALID',
-                              scope='AvgPool_1a_{}x{}'.format(*kernel_size))
-        # 1 x 1 x 2048
-        net = slim.dropout(net, keep_prob=dropout_keep_prob, scope='Dropout_1b')
-        end_points['PreLogits'] = net
-        # 2048
-        logits_fcn = slim.conv2d(net, num_classes, [1, 1], activation_fn=None,
-                             normalizer_fn=None, scope='Conv2d_1c_1x1')
-        if spatial_squeeze:
-          logits_fcn = tf.squeeze(logits_fcn, [1, 2], name='SpatialSqueeze')
-        # 1000
-        # TODO consider delete spatial squeeze
-        # 1 x 1 x 1000
-      end_points['FCN'] = logits_fcn;
+
+      # # comment out this one because use the full inception_v3
+      # with tf.variable_scope('FCN'):
+      #   # 8 x 8 x 2048
+      #   kernel_size = _reduced_kernel_size_for_small_input(net, [8, 8])
+      #   net = slim.avg_pool2d(net, kernel_size, padding='VALID',
+      #                         scope='AvgPool_1a_{}x{}'.format(*kernel_size))
+      #   # 1 x 1 x 2048
+      #   net = slim.dropout(net, keep_prob=dropout_keep_prob, scope='Dropout_1b')
+      #   end_points['PreLogits'] = net
+      #   # 2048
+      #   logits_fcn = slim.conv2d(net, num_classes, [1, 1], activation_fn=None,
+      #                        normalizer_fn=None, scope='Conv2d_1c_1x1')
+      #   if spatial_squeeze:
+      #     logits_fcn = tf.squeeze(logits_fcn, [1, 2], name='SpatialSqueeze')
+      #   # 1000
+      #   # TODO consider delete spatial squeeze
+      #   # 1 x 1 x 1000
+      # end_points['FCN'] = logits_fcn;
 
       # upsampling
+      net = end_points['Logits']
       with tf.variable_scope('Upsampling'):
         with slim.arg_scope([slim.conv2d_transpose], stride=2, padding='SAME', activation_fn=None, normalizer_fn=None):
           # 1 x 1 x 1000
@@ -635,7 +638,7 @@ def inception_v3_fcn(inputs,
           # tmp_deconv_shape3 = tf.shape(inputs)
           # deconv_shape3 = tf.stack([tmp_deconv_shape3[0], tmp_deconv_shape3[1], tmp_deconv_shape3[2], num_classes])
           # TODO: check dimension order
-          net = slim.conv2d_transpose(logits_fcn, 768, [4, 4], scope='Conv2d_Trans_4x4_1')
+          net = slim.conv2d_transpose(net, 768, [4, 4], scope='Conv2d_Trans_4x4_1')
           net = tf.add(net, end_points['Mixed_6d'], name='fuse_1')
           net = slim.conv2d_transpose(net, 288, [4, 4], scope='Conv2d_Trans_4x4_1')
           net = tf.add(net, end_points['Mixed_5c'], name='fuse_2')
@@ -645,10 +648,10 @@ def inception_v3_fcn(inputs,
           # net = slim.stack(net, slim.conv2d_transpose, [(depth, [kernel_size]),(another_one)], scope='UpsamplingStack')
       end_points['Upsampling'] = logits
       # size of the output TODO
-      annotation_pred = tf.argmax(logits, axis=3, name="prediction")
-      end_points['Prediction'] = annotation_pred
+      annotation_pred = tf.argmax(logits, axis=3, name="annotation_prediction")
+      end_points['AnnotationPrediction'] = annotation_pred
   return tf.expand_dims(annotation_pred, axis=3), logits, end_points
-inception_v3_fcn.default_image_size = 200
+inception_v3_fcn.default_image_size = 224
 
 
 def _reduced_kernel_size_for_small_input(input_tensor, kernel_size):

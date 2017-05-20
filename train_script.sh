@@ -14,4 +14,6 @@ python Inception_FCN.py \
 --train_dir=logs \
 --checkpoint_path=checkpoints/inception_v3.ckpt \
 --checkpoint_exclude_scopes=InceptionV3/Logits,InceptionV3/AuxLogits \
---trainable_scopes=InceptionV3/FCN,InceptionV3/Upsampling \
+--trainable_scopes=InceptionV3/Logits,InceptionV3/Upsampling \
+
+# python Inception_FCN.py --train_dir=logs --checkpoint_path=checkpoints/inception_v3.ckpt --checkpoint_exclude_scopes=InceptionV3/Logits,InceptionV3/AuxLogits --trainable_scopes=InceptionV3/Logits,InceptionV3/Upsampling 

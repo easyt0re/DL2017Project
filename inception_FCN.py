@@ -28,21 +28,21 @@ tf.flags.DEFINE_string(
 #####################
 
 tf.flags.DEFINE_string(
-    'checkpoint_path', None,
+    'checkpoint_path', 'logs',
     'The path to a checkpoint from which to fine-tune.')
-# this should be ''
+# this should be 'logs', used to be None
 
 tf.flags.DEFINE_string(
-    'checkpoint_exclude_scopes', None,
+    'checkpoint_exclude_scopes', 'InceptionV3/Logits,InceptionV3/AuxLogits',
     'Comma-separated list of scopes of variables to exclude when restoring '
     'from a checkpoint.')
-# this should be 'InceptionV3/Logits,InceptionV3/AuxLogits'
+# this should be 'InceptionV3/Logits,InceptionV3/AuxLogits', used to be None
 
 tf.flags.DEFINE_string(
-    'trainable_scopes', None,
+    'trainable_scopes', 'InceptionV3/Logits,InceptionV3/Upsampling',
     'Comma-separated list of scopes to filter the set of variables to train.'
     'By default, None would train all the variables.')
-# this should be 'InceptionV3/FCN,InceptionV3/Upsampling'
+# this should be 'InceptionV3/Logits,InceptionV3/Upsampling', used to be None
 
 tf.flags.DEFINE_boolean(
     'ignore_missing_vars', False,
@@ -138,7 +138,7 @@ def main(argv=None):
     image = tf.placeholder(tf.float32, shape=[None, IMAGE_SIZE, IMAGE_SIZE, 3], name="input_image")
     annotation = tf.placeholder(tf.int32, shape=[None, IMAGE_SIZE, IMAGE_SIZE, 1], name="annotation")
 
-    pred_annotation, logits = inception_v3_fcn.inception_v3_fcn(image, keep_probability)
+    pred_annotation, logits = inception_v3_fcn.inception_v3_fcn(image, num_classes=NUM_OF_CLASSESS, dropout_keep_prob=keep_probability)
     tf.summary.image("input_image", image, max_outputs=2)
     tf.summary.image("ground_truth", tf.cast(annotation, tf.uint8), max_outputs=2)
     tf.summary.image("pred_annotation", tf.cast(pred_annotation, tf.uint8), max_outputs=2)
