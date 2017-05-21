@@ -627,9 +627,9 @@ def inception_v3_fcn(inputs,
       # end_points['FCN'] = logits_fcn;
 
       # upsampling
-      net = end_points['Logits']
+      net = end_points['Mixed_7c']
       with tf.variable_scope('Upsampling'):
-        with slim.arg_scope([slim.conv2d_transpose], stride=2, padding='SAME', activation_fn=None, normalizer_fn=None):
+        with slim.arg_scope([slim.conv2d_transpose], stride=2, padding='VALID', activation_fn=None, normalizer_fn=None):
           # 1 x 1 x 1000
           # the depth can be obtained auto
           # now it's hard coded
@@ -638,12 +638,11 @@ def inception_v3_fcn(inputs,
           # tmp_deconv_shape3 = tf.shape(inputs)
           # deconv_shape3 = tf.stack([tmp_deconv_shape3[0], tmp_deconv_shape3[1], tmp_deconv_shape3[2], num_classes])
           # TODO: check dimension order
-          net = slim.conv2d_transpose(net, 768, [4, 4], scope='Conv2d_Trans_4x4_1')
-          net = tf.add(net, end_points['Mixed_6d'], name='fuse_1')
-          net = slim.conv2d_transpose(net, 288, [4, 4], scope='Conv2d_Trans_4x4_1')
+          net = slim.conv2d_transpose(net, 768, [4, 4], scope='Conv2d_Trans_5x5')
+          net = tf.add(net, end_points['Mixed_6e'], name='fuse_1')
+          net = slim.conv2d_transpose(net, 288, [3, 3], scope='Conv2d_Trans_4x4')
           net = tf.add(net, end_points['Mixed_5c'], name='fuse_2')
-          net = slim.conv2d_transpose(net, num_classes, [16, 16], stride=8, scope='Conv2d_Trans_16x16')
-          logits = tf.add(net, end_points['Mixed_6e'], name='fuse_1')
+          logits = slim.conv2d_transpose(net, num_classes, [32, 32], stride=8, scope='Conv2d_Trans_32x32')
           # # this is without skip 'fuse'
           # net = slim.stack(net, slim.conv2d_transpose, [(depth, [kernel_size]),(another_one)], scope='UpsamplingStack')
       end_points['Upsampling'] = logits

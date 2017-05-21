@@ -138,7 +138,7 @@ def main(argv=None):
     image = tf.placeholder(tf.float32, shape=[None, IMAGE_SIZE, IMAGE_SIZE, 3], name="input_image")
     annotation = tf.placeholder(tf.int32, shape=[None, IMAGE_SIZE, IMAGE_SIZE, 1], name="annotation")
 
-    pred_annotation, logits = inception_v3_fcn.inception_v3_fcn(image, num_classes=NUM_OF_CLASSESS, dropout_keep_prob=keep_probability)
+    pred_annotation, logits, end_points = inception_v3_fcn.inception_v3_fcn(image, num_classes=NUM_OF_CLASSESS, dropout_keep_prob=keep_probability)
     tf.summary.image("input_image", image, max_outputs=2)
     tf.summary.image("ground_truth", tf.cast(annotation, tf.uint8), max_outputs=2)
     tf.summary.image("pred_annotation", tf.cast(pred_annotation, tf.uint8), max_outputs=2)
