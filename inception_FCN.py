@@ -142,6 +142,9 @@ def main(argv=None):
     tf.summary.image("input_image", image, max_outputs=2)
     tf.summary.image("ground_truth", tf.cast(annotation, tf.uint8), max_outputs=2)
     tf.summary.image("pred_annotation", tf.cast(pred_annotation, tf.uint8), max_outputs=2)
+    # slim.losses.sparse_softmax_cross_entropy(logits=logits, labels=tf.squeeze(annotation, squeeze_dims=[3]), scope="entropy")
+    # total_loss = slim.losses.get_total_loss()
+    # tf.summary.scalar('losses/total_loss', total_loss)
     loss = tf.reduce_mean((tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits,
                                                                           labels=tf.squeeze(annotation, squeeze_dims=[3]),
                                                                           name="entropy")))
@@ -160,6 +163,7 @@ def main(argv=None):
         for var in variables_to_train:
             utils.add_to_regularization_and_summary(var)
     train_op = train(loss, variables_to_train)
+    
 
     print("Setting up summary op...")
     summary_op = tf.summary.merge_all()
@@ -171,9 +175,9 @@ def main(argv=None):
 
     print("Setting up dataset reader")
     image_options = {'resize': True, 'resize_size': IMAGE_SIZE}
-    if FLAGS.mode == 'train':
-        train_dataset_reader = dataset.BatchDatset(train_records, image_options)
-    validation_dataset_reader = dataset.BatchDatset(valid_records, image_options)
+    # if FLAGS.mode == 'train':
+    #     train_dataset_reader = dataset.BatchDatset(train_records, image_options)
+    # validation_dataset_reader = dataset.BatchDatset(valid_records, image_options)
 
     sess = tf.Session()
 
@@ -184,8 +188,8 @@ def main(argv=None):
     sess.run(tf.global_variables_initializer())
     # maybe this is the place to do init_fn
     # TODO i dont know how to add init_op in this framework
-    init_fn = _get_init_fn()
-    init_fn(sess)
+    # init_fn = _get_init_fn()
+    # init_fn(sess)
 
     ckpt = tf.train.get_checkpoint_state(FLAGS.logs_dir)
     if ckpt and ckpt.model_checkpoint_path:
