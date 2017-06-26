@@ -28,7 +28,7 @@ tf.flags.DEFINE_string(
 #####################
 
 tf.flags.DEFINE_string(
-    'checkpoint_path', 'logs/',
+    'checkpoint_path', 'logs/inception_v3.ckpt',
     'The path to a checkpoint from which to fine-tune.')
 # this should be 'logs', used to be None
 
@@ -45,7 +45,7 @@ tf.flags.DEFINE_string(
 # this should be 'InceptionV3/Logits,InceptionV3/Upsampling', used to be None
 
 tf.flags.DEFINE_boolean(
-    'ignore_missing_vars', False,
+    'ignore_missing_vars', True,
     'When restoring a checkpoint would ignore missing variables.')
 # this may be True
 
@@ -175,9 +175,9 @@ def main(argv=None):
 
     print("Setting up dataset reader")
     image_options = {'resize': True, 'resize_size': IMAGE_SIZE}
-    # if FLAGS.mode == 'train':
-    #     train_dataset_reader = dataset.BatchDatset(train_records, image_options)
-    # validation_dataset_reader = dataset.BatchDatset(valid_records, image_options)
+    if FLAGS.mode == 'train':
+        train_dataset_reader = dataset.BatchDatset(train_records, image_options)
+    validation_dataset_reader = dataset.BatchDatset(valid_records, image_options)
 
     sess = tf.Session()
 
@@ -188,8 +188,8 @@ def main(argv=None):
     sess.run(tf.global_variables_initializer())
     # maybe this is the place to do init_fn
     # TODO i dont know how to add init_op in this framework
-    # init_fn = _get_init_fn()
-    # init_fn(sess)
+    init_fn = _get_init_fn()
+    init_fn(sess)
 
     ckpt = tf.train.get_checkpoint_state(FLAGS.logs_dir)
     if ckpt and ckpt.model_checkpoint_path:
