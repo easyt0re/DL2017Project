@@ -21,14 +21,14 @@ tf.flags.DEFINE_bool('debug', "False", "Debug mode: True/ False")
 tf.flags.DEFINE_string('mode', "train", "Mode train/ test/ visualize")
 # according to train_image_classifier.py
 tf.flags.DEFINE_string(
-    'train_dir', '/tmp/tfmodel/',
+    'train_dir', 'logs/',
     'Directory where checkpoints and event logs are written to.')
 #####################
 # Fine-Tuning Flags #
 #####################
 
 tf.flags.DEFINE_string(
-    'checkpoint_path', 'logs',
+    'checkpoint_path', 'logs/',
     'The path to a checkpoint from which to fine-tune.')
 # this should be 'logs', used to be None
 
@@ -163,7 +163,7 @@ def main(argv=None):
         for var in variables_to_train:
             utils.add_to_regularization_and_summary(var)
     train_op = train(loss, variables_to_train)
-    
+
 
     print("Setting up summary op...")
     summary_op = tf.summary.merge_all()
