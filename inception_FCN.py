@@ -188,13 +188,14 @@ def main(argv=None):
     sess.run(tf.global_variables_initializer())
     # maybe this is the place to do init_fn
     # TODO i dont know how to add init_op in this framework
-    init_fn = _get_init_fn()
-    init_fn(sess)
-
+    
     ckpt = tf.train.get_checkpoint_state(FLAGS.logs_dir)
     if ckpt and ckpt.model_checkpoint_path:
         saver.restore(sess, ckpt.model_checkpoint_path)
         print("Model restored...")
+    else:
+        init_fn = _get_init_fn()
+        init_fn(sess)
 
     if FLAGS.mode == "train":
         for itr in xrange(MAX_ITERATION):
