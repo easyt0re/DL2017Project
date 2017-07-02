@@ -30,7 +30,7 @@ tf.flags.DEFINE_string(
 tf.flags.DEFINE_string(
     'checkpoint_path', 'logs/inception_v3.ckpt',
     'The path to a checkpoint from which to fine-tune.')
-# this should be 'logs', used to be None
+# this should be 'logs/inception_v3.ckpt', used to be None
 
 tf.flags.DEFINE_string(
     'checkpoint_exclude_scopes', 'InceptionV3/Logits,InceptionV3/AuxLogits',
@@ -39,15 +39,15 @@ tf.flags.DEFINE_string(
 # this should be 'InceptionV3/Logits,InceptionV3/AuxLogits', used to be None
 
 tf.flags.DEFINE_string(
-    'trainable_scopes', 'InceptionV3/Logits,InceptionV3/Upsampling',
+    'trainable_scopes', None,
     'Comma-separated list of scopes to filter the set of variables to train.'
     'By default, None would train all the variables.')
-# this should be 'InceptionV3/Logits,InceptionV3/Upsampling', used to be None
+# this should be 'InceptionV3/Logits,InceptionV3/Upsampling', used to be None (no quotation mark)
 
 tf.flags.DEFINE_boolean(
     'ignore_missing_vars', True,
     'When restoring a checkpoint would ignore missing variables.')
-# this may be True
+# this may be True, used to be False
 
 # MODEL_URL = 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'
 
