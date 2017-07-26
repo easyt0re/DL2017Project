@@ -52,6 +52,24 @@ selected arbitrary layer to do skip
 
 Bug: never really train it but everything before that should be OK
 
+## check commit msgs for updates up to #4.3
+
+## Minor Updates: #4.4
+tried to train full network but failed
+the current understanding is that saver.restore cannot handle missing variables
+for the old code to work:
+change trainable_scope to None (to train all)
+change logs_dir and train_dir to logs/all (push one level down)
+change checkpoint_path to logs
+these changes were based on train_classifier from slim
+this will restore the model using init_fn, ignoring the missing variables
+ran short tests with small dataset and no more errors
+fingers cross for PDC
+
+TODO: these are actually flags
+try to see how to pass them with script
+current solution is to change the default value
+
 
 
 # Things that Yang found interesting
