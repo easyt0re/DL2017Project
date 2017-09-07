@@ -1,7 +1,7 @@
 # DL2017Project
 This is an initial repo for Deep Learning Project.
 
-**This page is no longer updating. For more information and results, go to [FCN-GoogLeNet](https://github.com/DeepSegment/FCN-GoogLeNet). **
+**This page is no longer updating. For more information and results, go to [FCN-GoogLeNet](https://github.com/DeepSegment/FCN-GoogLeNet).**
 
 This is a Tensorflow Implementation of [Fully Convolutional Networks for Semantic Segmentation, CVPR 2015](https://github.com/shelhamer/fcn.berkeleyvision.org).
 
